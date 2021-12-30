@@ -20,7 +20,7 @@ cd
 
 echo "Checking to make sure we are in /root directory"
 $CURRENT_DIR=$(pwd)
-if [[ $CURRENT_DIR ! = "/root"]]; then
+if [[ $CURRENT_DIR ! == "/root"]]; then
     echo "You need to be root to install the beta. Please login as root and rerun the installer."
     exit 1
 fi
@@ -90,7 +90,7 @@ echo "Restarting mysql"
 systemctl restart mysql
 
 echo "Installing git and cloning the v6 beta repo"
-apt install git -yes
+apt install git -y
 
 git clone https://github.com/OriginTrail/ot-node
 cd ot-node
@@ -123,11 +123,11 @@ echo "Running DB migrations"
 npx sequelize --config=./config/sequelizeConfig.js db:migrate
 
 echo "Starting the node"
-forever start -a -o out.log -e out.log index.js
+#forever start -a -o out.log -e out.log index.js
 
-echo "Logs will be displayed. Press ctrl+c to exit the logs. The node WILL stay running after you return to the command prompt."
+#echo "Logs will be displayed. Press ctrl+c to exit the logs. The node WILL stay running after you return to the command prompt."
 
 read -p "Press enter to continue..."
 
-tail -f -n100 out.log
+#tail -f -n100 out.log
 
