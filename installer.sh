@@ -28,7 +28,7 @@ cd
 apt update && apt upgrade -yes
 
 echo "Installing default-jre"
-apt install default-jre unzip -y
+apt install default-jre unzip jq -y
 
 if [[ $? -eq 1 ]]; then
     echo "There was an error installing default-jre."
