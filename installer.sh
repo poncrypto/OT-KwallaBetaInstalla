@@ -18,15 +18,17 @@ fi
 
 cd
 
-echo "Checking to make sure we are in /root directory"
-$CURRENT_DIR=$(pwd)
-if [[ $CURRENT_DIR ! == "/root"]]; then
-    echo "You need to be root to install the beta. Please login as root and rerun the installer."
-    exit 1
-fi
+#echo "Checking to make sure we are in /root directory"
+#CURRENT_DIR=$(pwd)
+#if [[ $CURRENT_DIR != "/root"]]; then
+#    echo "You need to be root to install the beta. Please login as root and rerun the installer."
+#    exit 1
+#fi
+
+apt update && apt upgrade -yes
 
 echo "Installing default-jre"
-apt update && apt install default-jre -y
+apt install default-jre unzip -y
 
 if [[ $? -eq 1 ]]; then
     echo "There was an error installing default-jre."
@@ -49,7 +51,7 @@ fi
 echo "Downloading and setting up Node.js v14"
 curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh
 if [[ $? -eq 1 ]]; then
-    echo "There was an error installing anode.js setup."
+    echo "There was an error installing nodejs setup."
     exit 1
 fi
 
@@ -63,7 +65,7 @@ if [[ $? -eq 1 ]]; then
 fi
 
 echo "Installing nodejs and npm"
-aptitude install nodejs npm
+aptitude install nodejs npm -y
 if [[ $? -eq 1 ]]; then
     echo "There was an error installing nodejs/npm."
     exit 1
@@ -73,7 +75,7 @@ echo "Installing forever"
 npm install forever -g
 
 echo "Installing tcllib and mysql-server"
-apt install tcllib mysql-server
+apt install tcllib mysql-server -y
 
 echo "Creating a local operational database"
 mysql -u root  -e "CREATE DATABASE operationaldb /*\!40100 DEFAULT CHARACTER SET utf8 */;"
@@ -99,7 +101,7 @@ git checkout v6/release/testnet
 npm install
 
 echo "Opening firewall ports 22, 8900,9000 and enabling firewall"
-ufw allow 22/tcp && ufw allow 8900 && ufw allow 9000 && ufw enable
+ufw allow 22/tcp && ufw allow 8900 && ufw allow 9000 && yes | ufw enable
 
 echo "NODE_ENV=testnet" > .env
 
