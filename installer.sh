@@ -324,17 +324,7 @@ else
     echo -e "${GREEN}SUCCESS${NC}"
 fi
 
-echo -n "Changing directory to ot-node: "
-
-OUTPUT=$(cd ot-node)
-if [[ $? -eq 1 ]]; then
-    echo -e "${RED}FAILED${NC}"
-    echo "There was an error changing directory to ot-node."
-    echo $OUTPUT
-    exit 1
-else
-    echo -e "${GREEN}SUCCESS${NC}"
-fi
+cd ot-node
 
 echo -n "Executing git checkout: "
 
