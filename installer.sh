@@ -123,24 +123,10 @@ fi
 
 echo -n "Downloading Node.js v14: "
 
-OUTPUT=$(curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
-    echo -e "${RED}FAILED${NC}"
-    echo "There was an error downloading nodejs setup."
-    echo $OUTPUT
-    exit 1
-else
-    echo -e "${GREEN}SUCCESS${NC}"
-fi
-
-sh ./setup_14.sh
-
-echo -n "Downloading Node.js v14: "
-
 OUTPUT=$(curl -sL https://deb.nodesource.com/setup_14.x >/dev/null 2>&1)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
-    echo "There was an error setting up nodejs."
+    echo "There was an error downloading nodejs setup."
     echo $OUTPUT
     exit 1
 else
@@ -159,9 +145,21 @@ else
     echo -e "${GREEN}SUCCESS${NC}"
 fi
 
+echo -n "Updating the Ubuntu repo: "
+
+OUTPUT=$(apt update >/dev/null 2>&1)
+if [[ $? -eq 1 ]]; then
+    echo -e "${RED}FAILED${NC}"
+    echo "There was an error updating the Ubuntu repo."
+    echo $OUTPUT
+    exit 1
+else
+    echo -e "${GREEN}SUCCESS${NC}"
+fi
+
 echo -n "Installing aptitude: "
 
-OUTPUT=$(apt update && apt install aptitude -y >/dev/null 2>&1)
+OUTPUT=$(apt install aptitude -y >/dev/null 2>&1)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error installing aptitude."
