@@ -135,14 +135,16 @@ else
 fi
 
 echo -n "Confirming GraphDB has started: "
-GRAPH_STARTED=$(cat /root/nohup.out | grep 'Started GraphDB' | wc -l >/dev/null 2>&1)
 
-if [[ $GRAPH_STARTED -ne 1 ]]; then
-    echo -e "${RED}FAILED${NC}"
-    echo -n "GraphDB failed to start."
-    exit 1
-else
+IS_RUNNING=$(systemctl show -p ActiveState --value graphdb)
+
+if [[ $IS_RUNNING == "active" ]]; then
     echo -e "${GREEN}SUCCESS${NC}"
+else
+    echo -e "${RED}FAILED${NC}"
+    echo "There was an error starting GraphDB."
+    echo $OUTPUT
+    exit 1
 fi
 
 echo -n "Downloading Node.js v14: "
