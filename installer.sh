@@ -70,7 +70,7 @@ else
     echo -e "${GREEN}SUCCESS${NC}"
 fi
 
-echo -n "Updating Ubuntu to latest version: "
+echo -n "Updating Ubuntu to latest version (may take a few minutes): "
 OUTPUT=$(apt upgrade -y >/dev/null 2>&1)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
