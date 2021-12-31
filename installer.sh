@@ -121,7 +121,7 @@ fi
 echo -n "Confirming GraphDB has started: "
 GRAPH_STARTED=$(cat /root/nohup.out | grep 'Started GraphDB' | wc -l >/dev/null 2>&1)
 
-if [[ $GRAPH_STARTED ! -eq 1 ]]; then
+if [[ $GRAPH_STARTED -ne 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo -n "GraphDB failed to start."
     exit 1
