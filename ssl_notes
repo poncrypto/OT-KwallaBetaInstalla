@@ -13,3 +13,8 @@ tail -f -n100 out.log
 Open browser and goto:
 
 https://SERVER_IP:8900/info
+
+4
+Down vote
+openssl genrsa > privkey.pem
+openssl req -new -x509 -key privkey.pem > fullchain.pem
