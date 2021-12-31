@@ -17,6 +17,14 @@ NC='\033[0m' # No Color
 #    exit 1
 #fi
 
+clear
+
+echo "Installing the latest OriginTrail V6 Beta!"
+echo "This is a community installer. For support please visit the Communtiy Node Support Telegram group at https://t.me/otnodegroup."
+echo "Origintrail will NOT be able to support this installer."
+echo " "
+read -p "Press enter to acknowedge this and continue..."
+
 echo -n "Checking that the OS is Ubuntu 20.04 ONLY: "
 
 if [[ $OS_VERSION != 20.04 ]]; then
@@ -295,7 +303,7 @@ fi
 
 echo -n "Changing directory to ot-node: "
 
-OUTPUT=$(cd ot-node >/dev/null 2>&1)
+OUTPUT=$(cd ot-node)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error changing directory to ot-node."
