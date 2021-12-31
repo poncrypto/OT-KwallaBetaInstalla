@@ -25,7 +25,7 @@ echo "Origintrail will NOT be able to support this installer."
 echo " "
 read -p "Press enter to acknowedge this and continue..."
 
-echo -n "Checking that the OS is Ubuntu 20.04 ONLY: "
+echo -n "${N1}Checking that the OS is Ubuntu 20.04 ONLY: "
 
 if [[ $OS_VERSION != 20.04 ]]; then
     echo -e "${RED}FAILED${NC}"
