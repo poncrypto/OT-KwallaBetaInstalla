@@ -86,7 +86,7 @@ else
 fi
 
 echo -n "Unzipping GraphDB: "
-OUTPUT=$(unzip $GRAPHDB_FILE >/dev/null 2>&1)
+OUTPUT=$(unzip -o $GRAPHDB_FILE >/dev/null 2>&1)
 
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
@@ -135,9 +135,21 @@ fi
 
 sh ./setup_14.sh
 
+echo -n "Downloading Node.js v14: "
+
+OUTPUT=$(curl -sL https://deb.nodesource.com/setup_14.x >/dev/null 2>&1)
+if [[ $? -eq 1 ]]; then
+    echo -e "${RED}FAILED${NC}"
+    echo "There was an error setting up nodejs."
+    echo $OUTPUT
+    exit 1
+else
+    echo -e "${GREEN}SUCCESS${NC}"
+fi
+
 echo -n "Setting up Node.js v14: "
 
-OUTPUT=$(curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh >/dev/null 2>&1)
+OUTPUT=$(sh setup_14.sh >/dev/null 2>&1)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error setting up nodejs."
