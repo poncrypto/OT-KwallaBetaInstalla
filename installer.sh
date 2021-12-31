@@ -8,6 +8,7 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+trap '' HUP
 #echo -e "${GREEN}ALREADY STOPPED${NC}"
 #if [[ $? -eq 0 ]]; then
 #    echo -e "${GREEN}SUCCESS${NC}"
