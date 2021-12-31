@@ -106,10 +106,24 @@ else
     echo -e "${GREEN}SUCCESS${NC}"
 fi
 
+echo -n "Copying service file: "
+
+OUTPUT=$(cp /root/OT-KwallaBetaInstalla/data/graphdb.service /lib/systemd/system/ >/dev/null 2>&1)
+
+if [[ $? -eq 1 ]]; then
+    echo -e "${RED}FAILED${NC}"
+    echo "There was an error copying the service file."
+    echo $OUTPUT
+    exit 1
+else
+    echo -e "${GREEN}SUCCESS${NC}"
+fi
+
+systemctl daemon-reload
+
 echo -n "Starting GraphDB: "
 
-OUTPUT=$(nohup /root/graphdb-free-9.10.1/bin/graphdb &)
-#nohup /root/graphdb-free-9.10.1/bin/graphdb &
+OUTPUT=$(systemctl start graphdb >/dev/null 2>&1)
 
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
