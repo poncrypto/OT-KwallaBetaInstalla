@@ -39,16 +39,16 @@ fi
 
 cd
 
-echo -n "Checking to make sure we are in /root directory: "
+#echo -n "Checking to make sure we are in /root directory: "
 
-CURRENT_DIR=$(pwd >/dev/null 2>&1)
-if [[ $CURRENT_DIR != /root ]]; then
-    echo -e "${RED}FAILED${NC}"
-    echo "You need to be root to install the beta. Please login as root (or sudo -i) and rerun the installer."
-    exit 1
-else
-    echo -e "${GREEN}SUCCESS${NC}"
-fi
+#CURRENT_DIR=$(pwd >/dev/null 2>&1)
+#if [[ $CURRENT_DIR != /root ]]; then
+#    echo -e "${RED}FAILED${NC}"
+#    echo "You need to be root to install the beta. Please login as root (or sudo -i) and rerun the installer."
+#    exit 1
+#else
+#    echo -e "${GREEN}SUCCESS${NC}"
+#fi
 
 echo -n "Updating Ubuntu package repository: "
 OUTPUT=$(apt update >/dev/null 2>&1)
