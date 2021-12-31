@@ -108,8 +108,8 @@ fi
 
 echo -n "Starting GraphDB: "
 
-#OUTPUT=$(yes "" | nohup /root/graphdb-free-9.10.1/bin/graphdb &> /dev/null &)
-nohup /root/graphdb-free-9.10.1/bin/graphdb &
+OUTPUT=$(nohup /root/graphdb-free-9.10.1/bin/graphdb &)
+#nohup /root/graphdb-free-9.10.1/bin/graphdb &
 
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
