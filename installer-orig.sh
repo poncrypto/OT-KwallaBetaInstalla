@@ -47,19 +47,7 @@ if [[ $CURRENT_DIR != /root ]]; then
     exit 1
 fi
 
-OUTPUT=$(apt update >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
-    echo -e "${RED}There was an error updating the Ubuntu repo.${NC}"
-    echo $OUTPUT
-    exit 1
-fi
-
-OUTPUT=$(apt upgrade -y >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
-    echo -e "${RED}There was an error updating Ubuntu.${NC}"
-    echo $OUTPUT
-    exit 1
-fi
+apt update && apt upgrade -y
 
 echo "*****************************************************"
 echo "*****************************************************"
