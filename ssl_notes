@@ -1,0 +1,15 @@
+cd /root
+mkdir certs
+mv domain.* certs/
+cd certs
+mv domain.key privkey.pem
+mv domain.crt fullchain.pem
+cd /root/ot-node
+whitelist your ip by adding your desktop IP to the origintrail_noderc
+forever stop index.js
+forever start -a -o out.log -e out.log index.js
+tail -f -n100 out.log
+
+Open browser and goto:
+
+https://SERVER_IP:8900/info
