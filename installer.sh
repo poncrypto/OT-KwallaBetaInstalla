@@ -414,6 +414,7 @@ else
     echo -e "${GREEN}SUCCESS${NC}"
 fi
 
+echo $PWD
 echo -n "Starting the node: "
 
 OUTPUT=$(forever start -a -o out.log -e out.log index.js >/dev/null 2>&1)
