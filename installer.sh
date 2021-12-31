@@ -3,6 +3,7 @@
 OS_VERSION=$(lsb_release -sr)
 INSTALLER_NAME="OT-KwallaBetaInstalla"
 GRAPHDB_FILE="/root/graphdb-free-9.10.1-dist.zip"
+OTNODE_DIR="/root/ot-node"
 N1=$'\n'
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -60,7 +61,9 @@ cd
 #fi
 
 echo -n "Updating Ubuntu package repository: "
+
 OUTPUT=$(apt update >/dev/null 2>&1)
+
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error updating the Ubuntu repo."
@@ -71,7 +74,9 @@ else
 fi
 
 echo -n "Updating Ubuntu to latest version (may take a few minutes): "
+
 OUTPUT=$(apt upgrade -y >/dev/null 2>&1)
+
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo -n "There was an error updating Ubuntu to the latest version."
@@ -399,13 +404,13 @@ echo "Node wallet: $NODE_WALLET"
 read -p "Enter the private key: " NODE_PRIVATE_KEY
 echo "Node wallet: $NODE_PRIVATE_KEY"
 
-cp .origintrail_noderc_example .origintrail_noderc
+cp $OTNODE_DIR/.origintrail_noderc_example $OTNODE_DIR/.origintrail_noderc
 
-jq --arg newval "$NODE_WALLET" '.blockchain[].publicKey |= $newval' .origintrail_noderc >> origintrail_noderc_temp
-mv origintrail_noderc_temp .origintrail_noderc
+jq --arg newval "$NODE_WALLET" '.blockchain[].publicKey |= $newval' $OTNODE_DIR/.origintrail_noderc >> $OTNODE_DIR/origintrail_noderc_temp
+mv $OTNODE_DIR/origintrail_noderc_temp $OTNODE_DIR/.origintrail_noderc
 
-jq --arg newval "$NODE_PRIVATE_KEY" '.blockchain[].privateKey |= $newval' .origintrail_noderc >> origintrail_noderc_temp
-mv origintrail_noderc_temp .origintrail_noderc
+jq --arg newval "$NODE_PRIVATE_KEY" '.blockchain[].privateKey |= $newval' $OTNODE_DIR/.origintrail_noderc >> $OTNODE_DIR/origintrail_noderc_temp
+mv $OTNODE_DIR/origintrail_noderc_temp $OTNODE_DIR/.origintrail_noderc
 
 echo -n "Running DB migrations: "
 
