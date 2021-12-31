@@ -125,11 +125,11 @@ echo "Running DB migrations"
 npx sequelize --config=./config/sequelizeConfig.js db:migrate
 
 echo "Starting the node"
-#forever start -a -o out.log -e out.log index.js
+forever start -a -o out.log -e out.log index.js
 
-#echo "Logs will be displayed. Press ctrl+c to exit the logs. The node WILL stay running after you return to the command prompt."
+echo "Logs will be displayed. Press ctrl+c to exit the logs. The node WILL stay running after you return to the command prompt."
 
 read -p "Press enter to continue..."
 
-#tail -f -n100 out.log
+tail -f -n100 out.log
 
