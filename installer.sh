@@ -53,7 +53,7 @@ echo -n "Updating Ubuntu package repository: "
 
 OUTPUT=$(apt update >/dev/null 2>&1)
 
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error updating the Ubuntu repo."
     echo $OUTPUT
@@ -66,7 +66,7 @@ echo -n "Updating Ubuntu to latest version (may take a few minutes): "
 
 OUTPUT=$(apt upgrade -y >/dev/null 2>&1)
 
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo -n "There was an error updating Ubuntu to the latest version."
     echo $OUTPUT
@@ -79,7 +79,7 @@ echo -n "Installing default-jre: "
 
 OUTPUT=$(apt install default-jre unzip jq -y >/dev/null 2>&1)
 
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error installing default-jre."
     echo $OUTPUT
@@ -91,7 +91,7 @@ fi
 echo -n "Unzipping GraphDB: "
 OUTPUT=$(unzip -o $GRAPHDB_FILE >/dev/null 2>&1)
 
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error unzipping GraphDB."
     echo $OUTPUT
@@ -104,7 +104,7 @@ echo -n "Copying service file: "
 
 OUTPUT=$(cp /root/OT-KwallaBetaInstalla/data/graphdb.service /lib/systemd/system/ >/dev/null 2>&1)
 
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error copying the service file."
     echo $OUTPUT
@@ -119,7 +119,7 @@ echo -n "Starting GraphDB: "
 
 OUTPUT=$(systemctl start graphdb >/dev/null 2>&1)
 
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error starting GraphDB."
     echo $OUTPUT
@@ -144,7 +144,7 @@ fi
 echo -n "Downloading Node.js v14: "
 
 OUTPUT=$(wget https://deb.nodesource.com/setup_14.x >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -nq 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error downloading nodejs setup."
     echo $OUTPUT
@@ -156,7 +156,7 @@ fi
 echo -n "Setting up Node.js v14: "
 
 OUTPUT=$(sh setup_14.x.sh >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error setting up nodejs."
     echo $OUTPUT
@@ -168,7 +168,7 @@ fi
 echo -n "Updating the Ubuntu repo: "
 
 OUTPUT=$(apt update >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error updating the Ubuntu repo."
     echo $OUTPUT
@@ -180,7 +180,7 @@ fi
 echo -n "Installing aptitude: "
 
 OUTPUT=$(apt install aptitude -y >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error installing aptitude."
     echo $OUTPUT
@@ -192,7 +192,7 @@ fi
 echo -n "Installing nodejs and npm: "
 
 OUTPUT=$(aptitude install nodejs npm -y >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error installing nodejs/npm."
     echo $OUTPUT
@@ -204,7 +204,7 @@ fi
 echo -n "Installing forever: "
 
 OUTPUT=$(npm install forever -g >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error installing forever."
     echo $OUTPUT
@@ -216,7 +216,7 @@ fi
 echo -n "Installing tcllib and mysql-server: "
 
 OUTPUT=$(apt install tcllib mysql-server -y >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error installing tcllib and mysql-server."
     echo $OUTPUT
@@ -228,7 +228,7 @@ fi
 echo -n "Creating a local operational database: "
 
 mysql -u root  -e "CREATE DATABASE operationaldb /*\!40100 DEFAULT CHARACTER SET utf8 */;"
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error creating the database (Step 1 of 3)."
     echo $OUTPUT
@@ -236,7 +236,7 @@ if [[ $? -eq 1 ]]; then
 fi
 
 mysql -u root -e "update mysql.user set plugin = 'mysql_native_password' where User='root';"
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error updating mysql.user set plugin (Step 2 of 3)."
     echo $OUTPUT
@@ -244,7 +244,7 @@ if [[ $? -eq 1 ]]; then
 fi
 
 mysql -u root -e "flush privileges;"
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error flushing privileges (Step 3 of 3)."
     echo $OUTPUT
@@ -256,7 +256,7 @@ fi
 echo -n "Commenting out max_binlog_size: "
 
 OUTPUT=$(sed -i 's|max_binlog_size|#max_binlog_size|' /etc/mysql/mysql.conf.d/mysqld.cnf >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error commenting out max_binlog_size."
     echo $OUTPUT
@@ -268,7 +268,7 @@ fi
 echo -n "Disabling binary logs: "
 
 OUTPUT=$(echo "disable_log_bin" >> /etc/mysql/mysql.conf.d/mysqld.cnf)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error disabling binary logs."
     echo $OUTPUT
@@ -280,7 +280,7 @@ fi
 echo -n "Restarting mysql: "
 
 OUTPUT=$(systemctl restart mysql >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error restarting mysql."
     echo $OUTPUT
@@ -292,7 +292,7 @@ fi
 echo -n "Installing git: "
 
 OUTPUT=$(apt install git -y >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error installing git."
     echo $OUTPUT
@@ -304,7 +304,7 @@ fi
 echo -n "Cloning the V6 git repo: "
 
 OUTPUT=$(git clone https://github.com/OriginTrail/ot-node >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error cloning the V6 git repo."
     echo $OUTPUT
@@ -318,7 +318,7 @@ cd ot-node
 echo -n "Executing git checkout: "
 
 OUTPUT=$(git checkout v6/release/testnet >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error executing git checkout."
     echo $OUTPUT
@@ -330,7 +330,7 @@ fi
 echo -n "Executing npm install: "
 
 OUTPUT=$(npm install >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error executing npm install."
     echo $OUTPUT
@@ -342,7 +342,7 @@ fi
 echo -n "Opening firewall ports 22,8900,9000: "
 
 OUTPUT=$(ufw allow 22/tcp && ufw allow 8900 && ufw allow 9000 >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error opening the firewall ports."
     echo $OUTPUT
@@ -354,7 +354,7 @@ fi
 echo -n "Enabling the firewall: "
 
 OUTPUT=$(yes | ufw enable >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error enabling the firewall."
     echo $OUTPUT
@@ -366,7 +366,7 @@ fi
 echo -n "Adding NODE_ENV=testnet to .env: "
 
 OUTPUT=$(echo "NODE_ENV=testnet" > .env)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error adding the env variable."
     echo $OUTPUT
@@ -394,7 +394,7 @@ mv $OTNODE_DIR/origintrail_noderc_temp $OTNODE_DIR/.origintrail_noderc
 echo -n "Running DB migrations: "
 
 OUTPUT=$(npx sequelize --config=./config/sequelizeConfig.js db:migrate >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error running the db migrations."
     echo $OUTPUT
@@ -406,7 +406,7 @@ fi
 echo -n "Starting the node: "
 
 OUTPUT=$(forever start -a -o out.log -e out.log index.js >/dev/null 2>&1)
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error starting the node."
     echo $OUTPUT
