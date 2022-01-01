@@ -8,7 +8,7 @@ Installs the V6 Beta Stage 1 Node
 2. Install git and clone the repo:
 
 ```
-apt install git && git clone https://github.com/calr0x/OT-KwallaBetaInstalla.git
+apt install git -y && git clone https://github.com/calr0x/OT-KwallaBetaInstalla.git
 ```
 
 3. Change the directory into the repo:
