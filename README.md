@@ -14,7 +14,7 @@ apt install git -y && git clone https://github.com/calr0x/OT-KwallaBetaInstalla.
 3. Change the directory into the repo:
 
 ```
-cd ot-node
+cd OT-KwallaBetaInstalla
 ```
 
 4. Run the install script:
