@@ -13,7 +13,7 @@ Get this file into the /root directory on the server. Just leave it as a zip fil
 
 2. Login to the server as root
 
-3. Install git, clone the repo, change the directory into the repo, and run the install script:
+3. Execute the following command:
 
 ```
 wget apt install git -y && git clone https://github.com/calr0x/OT-KwallaBetaInstalla.git && cd OT-KwallaBetaInstalla && ./installer.sh
