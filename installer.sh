@@ -155,7 +155,7 @@ fi
 
 echo -n "Setting up Node.js v14: "
 
-OUTPUT=$(sh setup_14.sh >/dev/null 2>&1)
+OUTPUT=$(sh setup_14.x.sh >/dev/null 2>&1)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error setting up nodejs."
