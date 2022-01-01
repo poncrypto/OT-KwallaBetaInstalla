@@ -340,7 +340,7 @@ fi
 
 echo -n "Executing npm install: "
 
-OUTPUT=$(npm install >/dev/null 2>&1)
+OUTPUT=$(npm install >> install.log)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error executing npm install."
@@ -417,7 +417,7 @@ fi
 echo $PWD
 echo -n "Starting the node: "
 
-OUTPUT=$(forever start -a -o out.log -e out.log index.js >/dev/null 2>&1)
+OUTPUT=$(forever start -a -o out.log -e out.log index.js)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error starting the node."
