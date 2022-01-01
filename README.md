@@ -1,6 +1,8 @@
 # OT-KwallaBetaInstalla
 Installs the V6 Beta Stage 1 Node
 
+**UPCOMING FEATURE: SSL**
+
 1. Login to the server as root
 
 2. Clone the repo:
