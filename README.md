@@ -7,7 +7,7 @@ Installs the V6 Beta Stage 1 Node
 
 > "If you have issues running executable files on your machine, you may also try GraphDB as a stand-alone distributive."
 
-Click the link in this sentence that says **GraphDB as a stand-alone distributive** and download the file.
+Click the link that says **GraphDB as a stand-alone distributive** in this sentence and download the file.
 
 Get this file into the /root directory on the server. Just leave it as a zip file. My script will unzip it etc. We are working on how to get the zip file on the server easier.
 
