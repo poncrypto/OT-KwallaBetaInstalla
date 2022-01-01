@@ -49,17 +49,6 @@ fi
 
 cd
 
-#echo -n "Checking to make sure we are in /root directory: "
-
-#CURRENT_DIR=$(pwd >/dev/null 2>&1)
-#if [[ $CURRENT_DIR != /root ]]; then
-#    echo -e "${RED}FAILED${NC}"
-#    echo "You need to be root to install the beta. Please login as root (or sudo -i) and rerun the installer."
-#    exit 1
-#else
-#    echo -e "${GREEN}SUCCESS${NC}"
-#fi
-
 echo -n "Updating Ubuntu package repository: "
 
 OUTPUT=$(apt update >/dev/null 2>&1)
@@ -154,7 +143,7 @@ fi
 
 echo -n "Downloading Node.js v14: "
 
-OUTPUT=$(curl -sL https://deb.nodesource.com/setup_14.x >/dev/null 2>&1)
+OUTPUT=$(wget https://deb.nodesource.com/setup_14.x >/dev/null 2>&1)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error downloading nodejs setup."
@@ -340,7 +329,7 @@ fi
 
 echo -n "Executing npm install: "
 
-OUTPUT=$(npm install >> install.log)
+OUTPUT=$(npm install >/dev/null 2>&1)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error executing npm install."
@@ -350,7 +339,7 @@ else
     echo -e "${GREEN}SUCCESS${NC}"
 fi
 
-echo -n "Opening firewall ports 22, 8900,9000: "
+echo -n "Opening firewall ports 22,8900,9000: "
 
 OUTPUT=$(ufw allow 22/tcp && ufw allow 8900 && ufw allow 9000 >/dev/null 2>&1)
 if [[ $? -eq 1 ]]; then
@@ -414,10 +403,9 @@ else
     echo -e "${GREEN}SUCCESS${NC}"
 fi
 
-echo $PWD
 echo -n "Starting the node: "
 
-OUTPUT=$(forever start -a -o out.log -e out.log index.js)
+OUTPUT=$(forever start -a -o out.log -e out.log index.js >/dev/null 2>&1)
 if [[ $? -eq 1 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error starting the node."
