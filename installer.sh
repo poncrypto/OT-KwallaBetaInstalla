@@ -155,7 +155,8 @@ fi
 
 echo -n "Setting up Node.js v14: "
 
-chmod +x setup_14.x
+OUTPUT=$(chmod +x setup_14.x)
+
 OUTPUT=$(./setup_14.x >/dev/null 2>&1)
 if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
