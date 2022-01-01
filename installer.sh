@@ -144,7 +144,7 @@ fi
 echo -n "Downloading Node.js v14: "
 
 OUTPUT=$(wget https://deb.nodesource.com/setup_14.x >/dev/null 2>&1)
-if [[ $? -nq 0 ]]; then
+if [[ $? -ne 0 ]]; then
     echo -e "${RED}FAILED${NC}"
     echo "There was an error downloading nodejs setup."
     echo $OUTPUT
