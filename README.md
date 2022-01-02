@@ -11,7 +11,7 @@ Click the link that says **GraphDB as a stand-alone distributive** in this sente
 
 Get this file into the /root directory on the server. Just leave it as a zip file. My script will unzip it etc. We are working on how to get the zip file on the server easier.
 
-2. Login to the server as root
+2. Login to the server as root. You __cannot__ sudo and run this script for various reasons. The command "npm install" __will__ fail.
 
 3. Execute the following command:
 
