@@ -9,16 +9,6 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-trap '' HUP
-#echo -e "${GREEN}ALREADY STOPPED${NC}"
-#if [[ $? -eq 0 ]]; then
-#    echo -e "${GREEN}SUCCESS${NC}"
-#else
-#    echo -e "${RED}FAILED${NC}"
-#    $PROJECTDIR/data/send.sh "Delete $BACKUPDIR contents FAILED.${N1}$OUTPUT"
-#    exit 1
-#fi
-
 clear
 
 echo "Installing the latest OriginTrail V6 Beta!"
