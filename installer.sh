@@ -305,7 +305,7 @@ else
     echo -e "${GREEN}SUCCESS${NC}"
 fi
 
-cd ot-node
+cd ~/ot-node
 
 echo -n "Executing git checkout: "
 
